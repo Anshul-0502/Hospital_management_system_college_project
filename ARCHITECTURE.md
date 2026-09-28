@@ -105,13 +105,17 @@ This example defines a component boundary; it does not make a search feature man
 - Do not show a successful “saved” message unless data has actually been persisted.
 - Define the backend request and response format before connecting a page to an API.
 
-## 7. Backend boundary — later phase
+## 7. Backend architecture — Phase 5 Foundation
 
-The planned backend uses Java and Spring Boot. It will own business rules, validation, database access, and CRUD operations.
+The backend application is implemented using Java (21/25 LTS) and Spring Boot 3.4.3 with Maven. It establishes:
 
-React will display information and collect user input. The browser must not connect directly to the hospital database.
+- Application package root: `com.hospital.management`
+- Common health check endpoint: `GET /api/health`
+- CORS policy: Restricted to local React development server (`http://localhost:5173`)
+- Separation of layers: Controllers (`web/`), Services (`service/`), Repositories (`repository/`), DTOs (`dto/`) as feature phases are introduced.
 
-The database technology, API endpoints, authentication approach, and detailed data model have not yet been finalized.
+In Phase 5, the backend runs independently without database credentials. Database drivers and JPA are deferred until the database choice is confirmed for Phase 6.
+
 
 ## 8. Team collaboration
 

@@ -60,10 +60,73 @@ Do not add complex styling, generated assets, or unapproved features during the 
 - Open a pull request for review before merging into `main`.
 - Agree on component inputs and outputs before working on shared features.
 
-## Backend and database
+## Backend technology (Phase 5 Foundation)
 
-The planned backend will use Java with Spring Boot. Database access and create, read, update, and delete (CRUD) operations belong to that later phase. The current frontend does not claim to save real hospital data.
+- Runtime: Java 21 / 25 LTS (OpenJDK / Oracle JDK)
+- Framework: Spring Boot 3.4.3
+- Build Tool: Apache Maven 3.9+
+- Database: Decision pending for Phase 6 (PostgreSQL proposed)
+- Health Check: `GET http://localhost:8080/api/health`
+
+At this stage (Phase 5), the backend provides application foundation, CORS configuration for `http://localhost:5173`, and an availability health-check endpoint. Database persistence and clinical CRUD APIs are planned for subsequent phases.
+
+## Running the backend
+
+To build, test, and run the Spring Boot backend locally:
+
+```bash
+# 1. Navigate to the backend directory
+cd backend
+
+# 2. Run unit and health-check tests
+mvn test
+
+# 3. Start the Spring Boot server
+mvn spring-boot:run
+```
+
+Once started, the backend runs on `http://localhost:8080`. Verify process health:
+```bash
+curl http://localhost:8080/api/health
+```
+
+Expected JSON response:
+```json
+{
+  "status": "UP",
+  "service": "Hospital Management System Backend",
+  "phase": "Phase 5 — Backend Foundation",
+  "environment": "Development",
+  "databaseStatus": "Not Connected (Decision pending for Phase 6)",
+  "clinicalServices": "Not Active (Phase 5 foundation only)",
+  "disclaimer": "Process availability only. Database and operational clinical workflows are planned for later phases."
+}
+```
+
 
 ## Running the frontend
 
-Local setup commands will be added here after the React scaffold and its package scripts are created.
+To run the React frontend locally:
+
+```bash
+# 1. Navigate to the frontend directory
+cd frontend
+
+# 2. Install dependencies (Node.js and npm required)
+npm install
+
+# 3. Start the local development server
+npm run dev
+
+# 4. Or build for production
+npm run build
+```
+
+Once started with `npm run dev`, open the displayed local URL (typically `http://localhost:5173`) in your web browser.
+
+## Frontend Demo & Data Notice
+
+- All records displayed in the frontend come from `frontend/src/data/sampleData.js`.
+- Any registrations, appointments, consultations, or admissions made in the UI are held in active React browser memory.
+- Data resets upon refreshing the browser.
+- **Safety notice:** The emergency and ambulance screens are educational student demonstrations only; they do not contact emergency dispatch services.
